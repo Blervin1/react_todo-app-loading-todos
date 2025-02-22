@@ -7,14 +7,18 @@ import { Header } from './components/Header';
 import { TodoList } from './components/TodoList';
 import { Todo } from './types/Todo';
 
-type Filter = 'all' | 'active' | 'completed';
+enum Filter {
+  All = 'all',
+  Active = 'active',
+  Completed = 'completed',
+}
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isActive] = useState<number>();
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>(Filter.All);
   const [newTodo, setNewTodo] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -53,11 +57,11 @@ export const App: React.FC = () => {
   }, [errorMessage]);
 
   const filteredTodos = todos.filter(todo => {
-    if (filter === 'active') {
+    if (filter === Filter.Active) {
       return !todo.completed;
     }
 
-    if (filter === 'completed') {
+    if (filter === Filter.Completed) {
       return todo.completed;
     }
 
@@ -68,9 +72,7 @@ export const App: React.FC = () => {
     setFilter(newFilter);
   };
 
-  const handleToggleAll = () => {
-    // console.log('toggle All');
-  };
+  const handleToggleAll = () => {};
 
   const handleCloseError = () => {
     setErrorMessage('');

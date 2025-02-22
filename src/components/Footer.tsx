@@ -1,13 +1,18 @@
-// TodoFooter.tsx
 import classNames from 'classnames';
 import React from 'react';
 import { Todo } from '../types/Todo';
 
+enum Filter {
+  All = 'all',
+  Active = 'active',
+  Completed = 'completed',
+}
+
 interface FooterProps {
   todos: Todo[];
   todosLeft: number;
-  filter: 'all' | 'active' | 'completed';
-  onFilterChange: (filter: 'all' | 'active' | 'completed') => void;
+  filter: Filter;
+  onFilterChange: (filter: Filter) => void;
   loading: boolean;
 }
 
@@ -28,41 +33,21 @@ const Footer: React.FC<FooterProps> = ({
 
           {/* Active link should have the 'selected' class */}
           <nav className="filter" data-cy="Filter">
-            <a
-              href="#/"
-              className={classNames('filter__link', {
-                selected: filter === 'all',
-              })}
-              data-cy="FilterLinkAll"
-              onClick={() => onFilterChange('all')}
-            >
-              All
-            </a>
-
-            <a
-              href="#/active"
-              className={classNames('filter__link', {
-                selected: filter === 'active',
-              })}
-              data-cy="FilterLinkActive"
-              onClick={() => onFilterChange('active')}
-            >
-              Active
-            </a>
-
-            <a
-              href="#/completed"
-              className={classNames('filter__link', {
-                selected: filter === 'completed',
-              })}
-              data-cy="FilterLinkCompleted"
-              onClick={() => onFilterChange('completed')}
-            >
-              Completed
-            </a>
+            {Object.values(Filter).map(f => (
+              <a
+                key={f}
+                href={`#/${f}`}
+                className={classNames('filter__link', {
+                  selected: filter === f,
+                })}
+                data-cy={`FilterLink${f.charAt(0).toUpperCase() + f.slice(1)}`}
+                onClick={() => onFilterChange(f)}
+              >
+                {f.charAt(0).toUpperCase() + f.slice(1)}
+              </a>
+            ))}
           </nav>
 
-          {/* this button should be disabled if there are no completed todos */}
           <button
             type="button"
             className="todoapp__clear-completed"
