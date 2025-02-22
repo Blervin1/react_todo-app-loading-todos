@@ -1,12 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
+import { Filter } from '../types/Filter';
 import { Todo } from '../types/Todo';
-
-enum Filter {
-  All = 'all',
-  Active = 'active',
-  Completed = 'completed',
-}
 
 interface FooterProps {
   todos: Todo[];

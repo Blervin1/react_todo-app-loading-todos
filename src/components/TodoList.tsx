@@ -1,12 +1,6 @@
 import React from 'react';
-import { Todo } from '../types/Todo';
+import { TodoListProps } from '../types/Todo';
 import { TodoItem } from './TodoItem';
-
-interface TodoListProps {
-  filteredTodos: Todo[];
-  loading: boolean;
-  isActive: number | undefined;
-}
 
 export const TodoList: React.FC<TodoListProps> = ({
   filteredTodos,

@@ -2,60 +2,48 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import classNames from 'classnames';
 import React from 'react';
-import { Todo } from '../types/Todo';
-
-interface TodoItemProps {
-  todo: Todo;
-  loading: boolean;
-  isActive: number | undefined;
-}
+import { TodoItemProps } from '../types/Todo';
 
 export const TodoItem: React.FC<TodoItemProps> = ({
-  todo,
+  todo: { id, title, completed },
   loading,
   isActive,
 }) => {
   return (
-    <div
-      data-cy="Todo"
-      className={classNames('todo', {
-        completed: todo.completed,
-      })}
-      key={todo.id}
-    >
+    <div data-cy="Todo" className={classNames('todo', { completed })} key={id}>
       <label className="todo__status-label">
         <input
           data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
-          checked={todo.completed}
+          checked={completed}
           onChange={() => {}}
           disabled={loading}
         />
       </label>
 
-      {todo.id === isActive ? (
+      {id === isActive ? (
         <form>
           <input
             data-cy="TodoTitleField"
             type="text"
             className="todo__title-field"
             placeholder="Empty todo will be deleted"
-            value={todo.title}
+            value={title}
             onChange={() => {}}
           />
         </form>
       ) : (
         <>
           <span data-cy="TodoTitle" className="todo__title">
-            {todo.title}
+            {title}
           </span>
 
           <button
             type="button"
             className="todo__remove"
             data-cy="TodoDelete"
-            onChange={() => {}}
+            onClick={() => {}}
             disabled={loading}
           >
             ×

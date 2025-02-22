@@ -5,13 +5,8 @@ import { ErrorNotification } from './components/ErrorNotification';
 import Footer from './components/Footer';
 import { Header } from './components/Header';
 import { TodoList } from './components/TodoList';
+import { Filter } from './types/Filter';
 import { Todo } from './types/Todo';
-
-enum Filter {
-  All = 'all',
-  Active = 'active',
-  Completed = 'completed',
-}
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
